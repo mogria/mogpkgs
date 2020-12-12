@@ -1,0 +1,19 @@
+name: "Test"
+on:
+  pull_request:
+  push:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/m0gr14@gmail.com
+    - uses: cachix/m0gr14@gmail.com
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/m0gr14@gmail.com
+      with:
+        name: mogpkgs
+        # If you chose API tokens for write access OR if you have a private cache
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - run: nix-build
+    - run: nix-shell --run "echo OK"
